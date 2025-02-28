@@ -1,13 +1,17 @@
+# Sinatra/Rack will not start a web server if test...
 ENV["RACK_ENV"] = "test"
 
+# Testing libraries
 require "minitest/autorun"
 require "rack/test"
 
+# App to be tested
 require_relative "../app"
 
 class AppTest < Minitest::Test
   include Rack::Test::Methods
 
+  # Required by "rack/test", returns instance of Rack app
   def app
     Sinatra::Application
   end
@@ -19,3 +23,5 @@ class AppTest < Minitest::Test
     assert_equal "Hello, world!", last_response.body
   end
 end
+
+# Run tests with: $ bundle exec ruby test/app_test.rb
